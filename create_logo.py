@@ -120,8 +120,8 @@ def set_font_color(driver):
     # Click HEx Input &  send customer value
     driver.find_element_by_xpath('//span[@class="fitem tinput"]/input').click()
     print("--- INPUT %s AS COLOR (HEX) --- " % customer_color)
-    driver.find_element_by_xpath('//span[@class="fitem tinput"]/input').clear()
-    driver.find_element_by_xpath('//span[@class="fitem tinput"]/input').send_keys(customer_color)
+    gui.hotkey('ctrl', 'a')
+    gui.typewrite(customer_color)
     # Submit Change
     driver.find_element_by_xpath('/html/body/div[2]/div[1]/div[1]/div/div[2]/div/div[2]/button').click()
     set_font(driver)
