@@ -61,7 +61,7 @@ def open_psd_template(driver):
              pass
 
 def set_file_name(driver, filename):
-    gui.click(x=647, y=208, clicks=2)
+    gui.click(x=os.getenv("PEA_FILENAME_X"), y=os.getenv("PEA_FILENAME_Y"), clicks=2)
     gui.typewrite(filename)
     gui.press('tab')
     gui.press('enter')
@@ -70,7 +70,10 @@ def set_file_name(driver, filename):
 def set_social_tags(driver, idx, tag):
     print("SETTING SOCIAL TO %s" % (tag))
     # These are the location to click on the template for text of Social Text Holder
-    SOCIAL_COORDS = [[941, 496],[962, 620]]
+    SOCIAL_COORDS = [
+        [os.getenv("SOCIAL_TAG_1_X"), os.getenv("SOCIAL_TAG_1_Y")],
+        [os.getenv("SOCIAL_TAG_2_X"), os.getenv("SOCIAL_TAG_2_Y")]
+    ]
     # Layer Container ( will list layers)
     # '/html/body/div[2]/div[1]/div[4]/div[3]/div[2]/div[2]/div[3]/div/div[2]/div/div[2]/div/div'
     driver.find_elements_by_xpath("/html/body/div[2]/div[1]/div[4]/div[3]/div[2]/div[2]/div[3]/div/div[2]/div/div[2]/div/div")[idx + 1].click()
@@ -133,7 +136,7 @@ def save_file(driver):
     driver.find_element_by_xpath("/html/body/div[2]/div[1]/div[2]/div[3]/div[9]/span[2]").click()
     driver.find_element_by_xpath("/html/body/div[2]/div[1]/div[2]/div[4]/div[1]").click()
     driver.find_element_by_xpath("/html/body/div[2]/div[1]/div[1]/div/div[2]/div[2]/div/button").click()
-    gui.click(x=979, y=513)
+    gui.click(x=os.getenv("SAVE_FILE_X"), y=os.getenv("SAVE_FILE_Y"))
     sleep(2)
     gui.press('enter')
     print("--- FILE SAVED ---")
