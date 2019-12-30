@@ -3,3 +3,5 @@
 geckodriver
 venv/*
 .env
+*.png
+!example_logo.png
