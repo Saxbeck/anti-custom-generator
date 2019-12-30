@@ -42,8 +42,8 @@ def open_psd_template(driver):
     driver.find_element_by_xpath('/html/body/div[2]/div[1]/div[3]/div[2]/div[1]/span/button[1]').click()
     driver.find_element_by_xpath("//*[contains(text(), 'Open from URL...')]").click()
     driver.find_element_by_xpath('//span[@class="fitem tinput"]/input').click()
-    print("--- INPUT %s IN URL MODAL --- " % ASSC_PSD_URL)
-    driver.find_element_by_xpath('//span[@class="fitem tinput"]/input').send_keys(ASSC_PSD_URL)
+    print("--- INPUT %s IN URL MODAL --- " % os.getenv("ASSC_PSD_URL"))
+    driver.find_element_by_xpath('//span[@class="fitem tinput"]/input').send_keys(os.getenv("ASSC_PSD_URL"))
     print("--- SENDING REQUEST ---")
     driver.find_element_by_xpath('/html/body/div[2]/div[1]/div[1]/div/div[2]/div/button').click()
     print("--- LOADING TEMPLATE ---")
@@ -144,8 +144,8 @@ def save_file(driver):
 
 
 def create_logo(tags, color, filename):
-    fp = webdriver.FirefoxProfile(FIREFOX_PROFILE)
-    driver = webdriver.Firefox(fp, executable_path=GECKODRIVER_LOC)
+    fp = webdriver.FirefoxProfile(os.getenv("FIREFOX_PROFILE"))
+    driver = webdriver.Firefox(fp, executable_path=os.getenv("GECKODRIVER_LOC"))
     driver.set_window_position(2000,0)
     driver.get('https://photopea.com')
 

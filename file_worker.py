@@ -44,7 +44,7 @@ def process_request(file_data):
     print("--- CREATING LOGO ---")
     start_time = time.time()
     print('time %s' % start_time)
-    # create_logo([file_data['tag1'], file_data['tag2']], file_data['color'], file_data['filename'])
+    create_logo([file_data['tag1'], file_data['tag2']], file_data['color'], file_data['filename'])
 
     while logo_generated == False:
         print('--- WAITING FOR LOGO ---')
