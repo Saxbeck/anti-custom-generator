@@ -61,7 +61,7 @@ def open_psd_template(driver):
              pass
 
 def set_file_name(driver, filename):
-    gui.click(x=os.getenv("PEA_FILENAME_X"), y=os.getenv("PEA_FILENAME_Y"), clicks=2)
+    gui.click(x=int(os.getenv("PEA_FILENAME_X")), y=int(os.getenv("PEA_FILENAME_Y")), clicks=2)
     gui.typewrite(filename)
     gui.press('tab')
     gui.press('enter')
@@ -71,8 +71,8 @@ def set_social_tags(driver, idx, tag):
     print("SETTING SOCIAL TO %s" % (tag))
     # These are the location to click on the template for text of Social Text Holder
     SOCIAL_COORDS = [
-        [os.getenv("SOCIAL_TAG_1_X"), os.getenv("SOCIAL_TAG_1_Y")],
-        [os.getenv("SOCIAL_TAG_2_X"), os.getenv("SOCIAL_TAG_2_Y")]
+        [int(os.getenv("SOCIAL_TAG_1_X")), int(os.getenv("SOCIAL_TAG_1_Y"))],
+        [int(os.getenv("SOCIAL_TAG_2_X")), int(os.getenv("SOCIAL_TAG_2_Y"))]
     ]
     # Layer Container ( will list layers)
     # '/html/body/div[2]/div[1]/div[4]/div[3]/div[2]/div[2]/div[3]/div/div[2]/div/div[2]/div/div'
@@ -104,7 +104,7 @@ def set_social_tags(driver, idx, tag):
              print('--- ALERT MODAL BLOCKING ACTION ---')
              pass
 
-def set_font_color(driver):
+def set_font_color(driver, customer_color):
     # Highlight ANTI -> CLUB Shift select and change color
     print("--- Highlighting Text Elements ---")
     driver.find_element_by_xpath("//*[contains(text(), 'ANTI')]").click()
@@ -136,14 +136,14 @@ def save_file(driver):
     driver.find_element_by_xpath("/html/body/div[2]/div[1]/div[2]/div[3]/div[9]/span[2]").click()
     driver.find_element_by_xpath("/html/body/div[2]/div[1]/div[2]/div[4]/div[1]").click()
     driver.find_element_by_xpath("/html/body/div[2]/div[1]/div[1]/div/div[2]/div[2]/div/button").click()
-    gui.click(x=os.getenv("SAVE_FILE_X"), y=os.getenv("SAVE_FILE_Y"))
+    gui.click(x=int(os.getenv("SAVE_FILE_X")), y=int(os.getenv("SAVE_FILE_Y")))
     sleep(2)
     gui.press('enter')
     print("--- FILE SAVED ---")
     driver.quit()
 
 
-def create_logo(tags, color, filename):
+def create_logo(new_social_tags, color, filename):
     fp = webdriver.FirefoxProfile(os.getenv("FIREFOX_PROFILE"))
     driver = webdriver.Firefox(fp, executable_path=os.getenv("GECKODRIVER_LOC"))
     driver.set_window_position(2000,0)
@@ -159,16 +159,16 @@ def create_logo(tags, color, filename):
     # TODO: IMPLEMENT CHECK TO MAKE SURE THE TEXT WAS CHANGED
     for idx, tag in enumerate(new_social_tags):
         set_social_tags(driver, idx, tag)
-    set_font_color(driver)
+    set_font_color(driver, color)
     save_file(driver)
 
 # ---------------- MAIN -------------------
-ASSC_PSD_URL = os.getenv("ASSC_PSD_URL")
-FIREFOX_PROFILE = os.getenv("FIREFOX_PROFILE")
-GECKODRIVER_LOC = os.getenv("GECKODRIVER_LOC")
+#ASSC_PSD_URL = os.getenv("ASSC_PSD_URL")
+#FIREFOX_PROFILE = os.getenv("FIREFOX_PROFILE")
+#GECKODRIVER_LOC = os.getenv("GECKODRIVER_LOC")
 
 # This is some sample data that will be passed in to the main function
-new_social_tags=["DIET", "KETO"]
-customer_color='#000'
-filename = 'MIMII'
-create_logo(new_social_tags, customer_color, filename)
+#new_social_tags=["DIET", "KETO"]
+#customer_color='#000'
+#filename = 'MIMII'
+#create_logo(new_social_tags, customer_color, filename)
