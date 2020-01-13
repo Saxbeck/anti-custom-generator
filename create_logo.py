@@ -136,6 +136,7 @@ def save_file(driver):
     driver.find_element_by_xpath("/html/body/div[2]/div[1]/div[2]/div[3]/div[9]/span[2]").click()
     driver.find_element_by_xpath("/html/body/div[2]/div[1]/div[2]/div[4]/div[1]").click()
     driver.find_element_by_xpath("/html/body/div[2]/div[1]/div[1]/div/div[2]/div[2]/div/button").click()
+    sleep(1)
     gui.click(x=int(os.getenv("SAVE_FILE_X")), y=int(os.getenv("SAVE_FILE_Y")))
     sleep(2)
     gui.press('enter')
@@ -148,24 +149,24 @@ def create_logo(new_social_tags, color, filename):
     driver = webdriver.Firefox(fp, executable_path=os.getenv("GECKODRIVER_LOC"))
     driver.set_window_position(2000,0)
     driver.get('https://photopea.com')
-	
+
     try:
         # ---- Dont need this just preload font and cache it
-	# close_new_user_modal()
-	# load_font_into_photopea()
-	open_psd_template(driver)
-	set_file_name(driver, filename)
+        # close_new_user_modal()
+        # load_font_into_photopea()
+        open_psd_template(driver)
+        set_file_name(driver, filename)
 
-	# Set Social Tags to something new
-	# TODO: IMPLEMENT CHECK TO MAKE SURE THE TEXT WAS CHANGED
-	for idx, tag in enumerate(new_social_tags):
+        # Set Social Tags to something new
+        # TODO: IMPLEMENT CHECK TO MAKE SURE THE TEXT WAS CHANGED
+        for idx, tag in enumerate(new_social_tags):
 	    set_social_tags(driver, idx, tag)
-	    set_font_color(driver, color)
-	    save_file(driver)
-    except Exception as e:
-        print("--- Error Encountered - File Will not be fulfilled ---")
-	print(e.message)
-	driver.quit()
+        set_font_color(driver, color)
+        save_file(driver)
+    except:
+        print("Error During Create Logo")
+        driver.quit()
+
 
 # ---------------- MAIN -------------------
 #ASSC_PSD_URL = os.getenv("ASSC_PSD_URL")

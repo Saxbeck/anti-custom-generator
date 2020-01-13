@@ -23,7 +23,11 @@ def watch_requests_directory(s3):
         for object in bucket.objects.filter(Prefix='requests/'):
             if '.json' in object.key:
                 file_data = json.loads(object.get()['Body'].read().decode('utf-8'))
-                logo_result = process_request(file_data)
+		try:
+                    logo_result = process_request(file_data)
+                except:
+		    print("Error Processing -- Moving to Processed")
+	            move_to_processed(s3, file_data['filename'])
 
                 if logo_result['result'] == True:
                     print('--- LOGO CREATED --')
