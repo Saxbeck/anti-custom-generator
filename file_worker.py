@@ -74,7 +74,7 @@ def process_request(file_data):
 
 def upload_to_s3(s3, filepath, filename):
     print('--- UPLOAD TO RESULTS --')
-    s3.Bucket(os.getenv('S3_BUCKET_NAME')).upload_file(filepath, 'results/%s.png' % filename)
+    s3.Bucket(os.getenv('S3_BUCKET_NAME')).upload_file(filepath, 'results/%s.png' % filename, ExtraArgs={'ContentType': 'image/png'})
 
 def move_to_processed(s3, filename):
     print('--- COPY ORDER TO PROCESSED --')
